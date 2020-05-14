@@ -63,14 +63,12 @@ export const StartActionButton = () => {
     console.log("start");
   };
   return (
-    <div>
       <IconButton
         className={classes.startactionbtn}
         onClick={handleStartAction}
       >
         <PlayArrow />
       </IconButton>
-    </div>
   );
 };
 export const StopActionButton = () => {
@@ -79,10 +77,8 @@ export const StopActionButton = () => {
     console.log("stop");
   };
   return (
-    <div>
       <IconButton className={classes.stopactionbtn} onClick={handleStopAction}>
         <Stop />
       </IconButton>
-    </div>
   );
 };

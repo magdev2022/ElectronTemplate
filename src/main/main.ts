@@ -5,6 +5,7 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import {ipcMain,remote} from 'electron';
+const storage = require('electron-storage');
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow(): void {
@@ -74,7 +75,20 @@ ipcMain.on('mini-me',()=>{
         mainWindow.minimize();
     }
 })
-
+ipcMain.on('data',(event:Event,receive_data:any)=>{
+    console.log(receive_data);
+    if(receive_data.model=="profile")
+    {
+        let filename = path.join(__dirname,"profile.json")
+        storage.set(filename, receive_data.data)
+        .then((data:any) => {
+          console.log(filename);
+        })
+        .catch((err:any) => {
+          console.error("Err");
+        });
+    }
+})
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.

@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Profile from '../Types/Profile'
+const { ipcRenderer } = require("electron");
 const styles = (theme: Theme) =>
   createStyles({
     container: {
@@ -70,17 +72,8 @@ const exp_year = [2020, 2021, 2022, 2023];
 
 export interface Props extends WithStyles<typeof styles> {}
 
-export interface State {
-  email: string;
-  password: string;
-  cardnumber: string;
-  security_code: string;
-  exp_month: string;
-  exp_year: string;
-}
-
-class Setting extends React.Component<Props, State> {
-  state: State = {
+class Setting extends React.Component<Props, Profile> {
+  state: Profile = {
     email: "",
     password: "",
     cardnumber: "",
@@ -89,14 +82,22 @@ class Setting extends React.Component<Props, State> {
     exp_year: "",
   };
 
-  handleChange = (name: keyof State) => (
+  handleChange = (name: keyof Profile) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    this.setState({ [name]: event.target.value } as Pick<State, keyof State>);
+    this.setState({ [name]: event.target.value } as Pick<Profile, keyof Profile>);
   };
 
   render() {
     const { classes } = this.props;
+    const handleCreateProfile=()=>{
+      console.log(this.state);
+      let senddata ={
+        model:"profile",
+        data:this.state
+      }
+      ipcRenderer.send('data',senddata);
+    }
 
     return (
       <div className="container">
@@ -191,7 +192,7 @@ class Setting extends React.Component<Props, State> {
                 margin="normal"
               />
               <div>
-                <ColorButton variant="outlined">Create Profile</ColorButton>
+                <ColorButton variant="outlined" onClick={handleCreateProfile}>Create Profile</ColorButton>
                 <ColorButton variant="outlined">Delete Profile</ColorButton>
               </div>
             </form>

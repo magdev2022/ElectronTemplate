@@ -15,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:after": {
       borderBottomColor: "#ff7171",
     },
-    fontSize: 13,
   },
   input: {
     color: "#ff7171",
+    fontSize:11,
+    textAlign:"center"
   },
   select: {
     "&:before": {
@@ -35,7 +36,7 @@ export default function TaskControl() {
   return (
     <form noValidate autoComplete="off">
       <Grid container spacing={1}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             fullWidth
             id="product_url"
@@ -88,7 +89,7 @@ export default function TaskControl() {
         <Grid item xs={2}>
           <label id="status_label" />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2} style={{textAlign:'center'}}>
           <StartActionButton />
           <StopActionButton />
         </Grid>

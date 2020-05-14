@@ -15,7 +15,7 @@ export const TitleBar = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <label>PRODUCT</label>
         </Grid>
         <Grid item xs={1}>
@@ -33,7 +33,7 @@ export const TitleBar = () => {
         <Grid item xs={2}>
           <label>STATUS</label>
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2}>
           <label>ACTION</label>
         </Grid>
       </Grid>
