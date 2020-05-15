@@ -4,8 +4,8 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import {ipcMain,remote} from 'electron';
-const storage = require('electron-storage');
+import {ipcMain} from 'electron';
+import {FILE_NAMES,saveDataToFile,getFilePath,createMainDirectory} from './utils/LocalStorage/index'
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow(): void {
@@ -66,6 +66,11 @@ app.on('activate', () => {
         createWindow();
     }
 });
+const FILE_SEPARATOR = path.sep;
+const LOCAL_STORAGE_PATH = `${app.getPath(
+    "documents"
+  )}${FILE_SEPARATOR}AIOBOT`;
+  
 ipcMain.on('close-me', () => {
     app.quit();
   });
@@ -75,20 +80,15 @@ ipcMain.on('mini-me',()=>{
         mainWindow.minimize();
     }
 })
-ipcMain.on('data',(event:Event,receive_data:any)=>{
-    console.log(receive_data);
+createMainDirectory(LOCAL_STORAGE_PATH);
+ipcMain.on('data',(event:Event,receive_data:any)=>{   
     if(receive_data.model=="profile")
     {
-        let filename = path.join(__dirname,"profile.json")
-        storage.set(filename, receive_data.data)
-        .then((data:any) => {
-          console.log(filename);
-        })
-        .catch((err:any) => {
-          console.error("Err");
-        });
+        let filename:string = getFilePath(LOCAL_STORAGE_PATH,FILE_SEPARATOR, FILE_NAMES.PROFILES);
+        saveDataToFile(receive_data.data,filename);
     }
 })
+
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
