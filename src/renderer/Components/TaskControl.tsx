@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:after": {
       borderBottomColor: "#ff7171",
     },
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "#999999",
+    },
   },
   input: {
     color: "#ff7171",
@@ -28,7 +31,17 @@ const useStyles = makeStyles((theme) => ({
     "&:after": {
       borderColor: "#ff7171",
     },
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "#999999",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#ff7171",
+    },
   },
+  label:{
+    color:"#00dd00",
+    textAlign:"center"
+  }
 }));
 
 export default function TaskControl() {
@@ -51,6 +64,7 @@ export default function TaskControl() {
             fullWidth
             select
             className={classes.select}
+            SelectProps={{ className: classes.input }}     
           />
         </Grid>
         <Grid item xs={1}>
@@ -59,8 +73,7 @@ export default function TaskControl() {
             fullWidth
             select
             className={classes.select}
-            InputProps={{ className: classes.input }}
-            InputLabelProps={{ className: classes.input }}
+            SelectProps={{ className: classes.input }}                     
           />
         </Grid>
         <Grid item xs={1}>
@@ -86,8 +99,8 @@ export default function TaskControl() {
             InputLabelProps={{ className: classes.input }}
           />
         </Grid>
-        <Grid item xs={2}>
-          <label id="status_label" />
+        <Grid item xs={2} style={{textAlign:"center"}}>
+          <label id="status_label" className={classes.label} >IDLE</label>
         </Grid>
         <Grid item xs={2} style={{textAlign:'center'}}>
           <StartActionButton />
